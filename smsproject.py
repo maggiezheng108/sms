@@ -1,7 +1,7 @@
-#TechCrunch Disrupt
-#SMS Project
+# TechCrunch Disrupt
+# SMS Project
 
-#import statements
+# import statements
 import random
 import pygame
 import time
@@ -11,26 +11,29 @@ from pygame import *
 from Tkinter import *
 pygame.init()
 
+# set font and bg color
 font = pygame.font.SysFont("Calibri", 120)
 black = (0,0,0)
+grey = (96, 96, 96)
 
+# set font colors
 blue = (0, 0, 255)
 green = (0, 255, 0)
 red = (255, 0, 0)
 yellow = (255, 255, 0)
 purple = (102, 0, 204)
-pink = (255,105,255)
-orange = (255,128,0)
-brown = (98,50,2)
-white = (255,255,255)
-grey = (96,96,96)
+pink = (255, 105, 255)
+orange = (255, 128, 0)
+brown = (98, 50, 2)
+white = (255, 255, 255)
 
-width,height = 600, 600
+# define screen
+width, height = 600, 600
 screen = pygame.display.set_mode((width,height))
 pygame.display.set_caption("BLUE")
 screen.fill(black)
 
-
+# Class defining each word as an object Word.
 class Word:
 
     def __init__(self):
@@ -55,6 +58,7 @@ class Word:
     def getKey(self):
         return self.num
 
+#  dictionary of possibly colors
 colors = {
     0: blue,
     1: red,
@@ -67,6 +71,7 @@ colors = {
     8: white,
 }
 
+# dictionary of possible words
 words = {
     0: "BLUE",
     1: "RED",
@@ -79,12 +84,14 @@ words = {
     8: "WHITE",
 }
 
+# creates Word object and displays in iddle of the screen
 def gameplay(word):
     word.randomColor()
     word.randomString()
     text = font.render(word.getString(), 1, word.getColor())
     screen.blit(text, (300 - (text.get_width() / 2), 300 - (text.get_height() / 2)))
 
+#runs the game
 def main():
     leaving = False
     play = 0
@@ -104,16 +111,6 @@ def main():
                 pygame.display.flip()
                 play += 1
                 continue
-            # if answer.upper() != words[word.getKey()]:
-            #     screen.fill(grey)
-            #     pygame.display.flip()
-            #     play += 1
-            #     continue
-            # else:
-            #     screen.fill(grey)
-            #     pygame.display.flip()
-            #     play += 1
-            #     continue
         else:
             pass
         time = str(2000-clock.get_time())
