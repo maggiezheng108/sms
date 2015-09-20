@@ -12,7 +12,6 @@ from Tkinter import *
 pygame.init()
 
 font = pygame.font.SysFont("Calibri", 120)
-white = (255,255,255)
 black = (0,0,0)
 
 blue = (0, 0, 255)
@@ -22,7 +21,7 @@ yellow = (255, 255, 0)
 purple = (102, 0, 204)
 pink = (255,105,255)
 orange = (255,128,0)
-brown = (102,51,0)
+brown = (98,50,2)
 white = (255,255,255)
 
 width,height = 600, 600
@@ -34,16 +33,24 @@ class Word:
     def __init__(self):
         self.name = "name"
         self.color = "color"
+        self.num = "num"
 
-    def random_color(self):
+    def randomColor(self):
+        self.num = random.randint(0, 8)
+        self.color = colors[self.num]
+
+    def randomString(self):
         key = random.randint(0, 8)
-        self.name = colors[key]
+        self.name = words[key]
+
+    def getColor(self):
+        return self.color
+
+    def getString(self):
         return self.name
 
-    def random_string(self):
-        key = random.randint(0, 8)
-        self.color = words[key]
-        return self.color
+    def getKey(self):
+        return self.num
 
 colors = {
     0: blue,
@@ -70,24 +77,32 @@ words = {
 }
 
 def gameplay(word):
-    text = font.render(word.random_string(), 1, word.random_color())
+    word.randomColor()
+    word.randomString()
+    text = font.render(word.getString(), 1, word.getColor())
     screen.blit(text, (300 - (text.get_width() / 2), 300 - (text.get_height() / 2)))
 
 
 def main():
 
     play = 0
-    while play < 20:
-
+    correct = 0
+    while play < 21:
         word = Word()
         gameplay(word)
         answer = inputbox.ask(screen, "")
         screen.fill(black)
         pygame.display.flip()
-        print(answer)
         play += 1
-
-
+        if answer.upper() == words[word.getKey()]:
+            correct += 1
+    else:
+        print(correct)
+        correct = str(correct)
+        text = font.render('Score: \n' + correct, 1, (255,255,255))
+        screen.blit(text, (300 - (text.get_width() / 2), 300 - (text.get_height() / 2)))
+        pygame.display.flip()
+        sleep(5)
 
 if __name__ == '__main__': main()
     
