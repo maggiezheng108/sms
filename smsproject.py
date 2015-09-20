@@ -11,7 +11,7 @@ from pygame import *
 from Tkinter import *
 pygame.init()
 
-font = pygame.font.SysFont("Arial", 72)
+font = pygame.font.SysFont("Calibri", 120)
 white = (255,255,255)
 black = (0,0,0)
 
@@ -37,7 +37,7 @@ class Word:
         return self.name
 
     def random_string(self):
-        key = random.randint(5, 9)
+        key = random.randint(0, 4)
         self.color = words[key]
         return self.color
 
@@ -50,11 +50,11 @@ colors = {
 }
 
 words = {
-    5: "BLUE",
-    6: "RED",
-    7: "GREEN",
-    8: "YELLOW",
-    9: "PURPLE",
+    0: "BLUE",
+    1: "RED",
+    2: "GREEN",
+    3: "YELLOW",
+    4: "PURPLE",
 }
 
 def gameplay(word):
@@ -64,14 +64,16 @@ def gameplay(word):
 
 def main():
 
-    play = True
-    while play:
+    play = 0
+    while play < 20:
+
         word = Word()
         gameplay(word)
         answer = inputbox.ask(screen, "")
-        pygame.display.update()
-        if chary == u'\r':
-            play = False
+        screen.fill(black)
+        pygame.display.flip()
+        play += 1
+
 
 
 if __name__ == '__main__': main()
