@@ -27,7 +27,9 @@ grey = (96,96,96)
 
 width,height = 600, 600
 screen = pygame.display.set_mode((width,height))
+pygame.display.set_caption("BLUE")
 screen.fill(black)
+
 
 class Word:
 
@@ -83,10 +85,8 @@ def gameplay(word):
     text = font.render(word.getString(), 1, word.getColor())
     screen.blit(text, (300 - (text.get_width() / 2), 300 - (text.get_height() / 2)))
 
-
-
 def main():
-
+    leaving = False
     play = 0
     correct = 0
     while play < 21:
@@ -131,6 +131,7 @@ def main():
         screen.blit(text, (300 - (text.get_width() / 2), 300 - (text.get_height() / 2)))
         pygame.display.flip()
         sleep(5)
+
 
 if __name__ == '__main__': main()
     
