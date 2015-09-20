@@ -13,6 +13,7 @@ pygame.init()
 
 # set font and bg color
 font = pygame.font.SysFont("Calibri", 120)
+font2 = pygame.font.SysFont("Calibri", 48)
 black = (0,0,0)
 grey = (96, 96, 96)
 
@@ -33,7 +34,7 @@ screen = pygame.display.set_mode((width,height))
 pygame.display.set_caption("BLUE")
 screen.fill(black)
 
-# Class defining each word as an object Word.
+# class defining each word as an object Word
 class Word:
 
     def __init__(self):
@@ -58,7 +59,7 @@ class Word:
     def getKey(self):
         return self.num
 
-#  dictionary of possibly colors
+# dictionary of possibly colors
 colors = {
     0: blue,
     1: red,
@@ -91,11 +92,25 @@ def gameplay(word):
     text = font.render(word.getString(), 1, word.getColor())
     screen.blit(text, (300 - (text.get_width() / 2), 300 - (text.get_height() / 2)))
 
+def titlescreen():
+    screen.fill(white)
+    title = font.render("BLUE", 1, black)
+    screen.blit(title, (300 - (title.get_width() / 2), 300 - (title.get_height() / 2)))
+    subtitle = font2.render("Press Enter to begin", 1, black)
+    screen.blit(subtitle, (300 - (subtitle.get_width() / 2), 300 - (subtitle.get_height() / 2) + 100))
+    pygame.display.flip()
+
 #runs the game
 def main():
     leaving = False
     play = 0
     correct = 0
+    titlescreen()
+    inkey = inputbox.get_key();
+    if inkey != K_RETURN:
+        return
+    screen.fill(black)
+    pygame.display.flip()
     while play < 21:
         clock = pygame.time.Clock()
         clock.tick()
@@ -111,8 +126,6 @@ def main():
                 pygame.display.flip()
                 play += 1
                 continue
-        else:
-            pass
         time = str(2000-clock.get_time())
         text = font.render(time, 1, (255,255,255))
         screen.blit(text, (50, 50))
@@ -124,10 +137,18 @@ def main():
     else:
         print(correct)
         correct = str(correct)
-        text = font.render('Score: '+ correct, 1, (255,255,255))
+        text = font.render('Score: '+ correct, 1, white)
         screen.blit(text, (300 - (text.get_width() / 2), 300 - (text.get_height() / 2)))
+        text2 = font2.render("Press Enter to play again", 1, white)
+        screen.blit(text2, (300 - (text2.get_width() / 2), 300 - (text2.get_height() / 2) + 100))
+        text3 = font2.render("Press Space to exit", 1, white)
+        screen.blit(text3, (300 - (text3.get_width() / 2), 300 - (text3.get_height() / 2) + 150))
         pygame.display.flip()
-        sleep(5)
+        inkey = inputbox.get_key();
+        if inkey == K_RETURN:
+            main()
+        elif inkey == K_SPACE:
+            pass
 
 
 if __name__ == '__main__': main()
