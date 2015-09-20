@@ -20,6 +20,10 @@ green = (0, 255, 0)
 red = (255, 0, 0)
 yellow = (255, 255, 0)
 purple = (102, 0, 204)
+pink = (255,105,255)
+orange = (255,128,0)
+brown = (102,51,0)
+white = (255,255,255)
 
 width,height = 600, 600
 screen = pygame.display.set_mode((width,height))
@@ -32,12 +36,12 @@ class Word:
         self.color = "color"
 
     def random_color(self):
-        key = random.randint(0, 4)
+        key = random.randint(0, 8)
         self.name = colors[key]
         return self.name
 
     def random_string(self):
-        key = random.randint(0, 4)
+        key = random.randint(0, 8)
         self.color = words[key]
         return self.color
 
@@ -47,6 +51,10 @@ colors = {
     2: green,
     3: yellow,
     4: purple,
+    5: pink,
+    6: orange,
+    7: brown,
+    8: white,
 }
 
 words = {
@@ -55,6 +63,10 @@ words = {
     2: "GREEN",
     3: "YELLOW",
     4: "PURPLE",
+    5: "PINK",
+    6: "ORANGE",
+    7: "BROWN",
+    8: "WHITE",
 }
 
 def gameplay(word):
@@ -72,6 +84,7 @@ def main():
         answer = inputbox.ask(screen, "")
         screen.fill(black)
         pygame.display.flip()
+        print(answer)
         play += 1
 
 
