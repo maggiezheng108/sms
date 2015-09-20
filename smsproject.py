@@ -5,6 +5,7 @@
 import random
 import pygame
 import time
+import inputbox
 from time import sleep
 from pygame import *
 from Tkinter import *
@@ -58,7 +59,7 @@ words = {
 
 def gameplay(word):
     text = font.render(word.random_string(), 1, word.random_color())
-    screen.blit(text, (175, 250))
+    screen.blit(text, (300 - (text.get_width() / 2), 300 - (text.get_height() / 2)))
 
 
 def main():
@@ -67,9 +68,10 @@ def main():
     while play:
         word = Word()
         gameplay(word)
+        answer = inputbox.ask(screen, "")
         pygame.display.update()
-        sleep(5)
-        play = False
+        if chary == u'\r':
+            play = False
 
 
 if __name__ == '__main__': main()
