@@ -83,23 +83,31 @@ def gameplay(word):
     screen.blit(text, (300 - (text.get_width() / 2), 300 - (text.get_height() / 2)))
 
 
+
 def main():
 
     play = 0
     correct = 0
     while play < 21:
+        clock = pygame.time.Clock()
+        clock.tick()
         word = Word()
         gameplay(word)
         answer = inputbox.ask(screen, "")
+        pygame.display.update()
         screen.fill(black)
         pygame.display.flip()
+        time = str(clock.get_time())
+        text = font.render(time, 1, (255,255,255))
+        screen.blit(text, (50, 50))
         play += 1
         if answer.upper() == words[word.getKey()]:
             correct += 1
+
     else:
         print(correct)
         correct = str(correct)
-        text = font.render('Score: \n' + correct, 1, (255,255,255))
+        text = font.render('Score: '+ correct, 1, (255,255,255))
         screen.blit(text, (300 - (text.get_width() / 2), 300 - (text.get_height() / 2)))
         pygame.display.flip()
         sleep(5)
