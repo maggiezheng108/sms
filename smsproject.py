@@ -9,11 +9,16 @@ import inputbox
 from time import sleep
 from pygame import *
 from Tkinter import *
+
+#start up pygame
 pygame.init()
 
 # set font and bg color
 font = pygame.font.SysFont("Calibri", 120)
 font2 = pygame.font.SysFont("Calibri", 48)
+font3 = pygame.font.SysFont("Calibri", 200)
+font4 = pygame.font.SysFont("Calibri", 50)
+font5 = pygame.font.SysFont("Calibri", 25)
 black = (0,0,0)
 grey = (96, 96, 96)
 
@@ -92,12 +97,29 @@ def gameplay(word):
     text = font.render(word.getString(), 1, word.getColor())
     screen.blit(text, (300 - (text.get_width() / 2), 300 - (text.get_height() / 2)))
 
+#creates title screen
 def titlescreen():
     screen.fill(white)
-    title = font.render("BLUE", 1, black)
-    screen.blit(title, (300 - (title.get_width() / 2), 300 - (title.get_height() / 2)))
+    title = font3.render("BLUE", 1, black)
+    screen.blit(title, (300 - (title.get_width() / 2), 300 - (title.get_height() / 2) - 50))
     subtitle = font2.render("Press Enter to begin", 1, black)
-    screen.blit(subtitle, (300 - (subtitle.get_width() / 2), 300 - (subtitle.get_height() / 2) + 100))
+    screen.blit(subtitle, (300 - (subtitle.get_width() / 2), 300 - (subtitle.get_height() / 2) + 50))
+    pygame.display.flip()
+
+def directions():
+    screen.fill(white)
+    title = font4.render("DIRECTIONS", 1, black)
+    screen.blit(title, (300 - (title.get_width() / 2), 100))
+    subtitle = font5.render("Type the color of the word that appears on screen in under 2 seconds.", 1, black)
+    screen.blit(subtitle, (300 - (subtitle.get_width() / 2), 150))
+    subtitle2 = font5.render("If the answer is incorrect or time ends, the screen will turn grey.", 1, black)
+    screen.blit(subtitle2, (300 - (subtitle.get_width() / 2), 180))
+    subtitle3 = font5.render("There are 20 questions total.", 1, black)
+    screen.blit(subtitle3, (300 - (subtitle.get_width() / 2), 210))
+    subtitle4 = font5.render("Try to get the highest score possible!", 1, black)
+    screen.blit(subtitle4, (300 - (subtitle.get_width() / 2), 240))
+    subtitle5 = font2.render("Press Enter to continue", 1, black)
+    screen.blit(subtitle5, (300 - (subtitle.get_width() / 2), 290))
     pygame.display.flip()
 
 #runs the game
@@ -106,9 +128,13 @@ def main():
     play = 0
     correct = 0
     titlescreen()
-    inkey = inputbox.get_key();
+    inkey = inputbox.get_key()
     if inkey != K_RETURN:
         return
+    directions()
+    inkey = inputbox.get_key()
+    if inkey != K_RETURN:
+        return 
     screen.fill(black)
     pygame.display.flip()
     while play < 21:
@@ -119,15 +145,15 @@ def main():
         answer = inputbox.ask(screen, "")
 
         clock.tick()
-        time = (2000-clock.get_time())
+        time = (2000 - clock.get_time())
         
         if clock.get_time() >= 2000 or answer.upper() != words[word.getKey()]:
                 screen.fill(grey)
                 pygame.display.flip()
                 play += 1
                 continue
-        time = str(2000-clock.get_time())
-        text = font.render(time, 1, (255,255,255))
+        time = str(2000 - clock.get_time())
+        text = font.render(time, 1, white)
         screen.blit(text, (50, 50))
         screen.fill(black)
         pygame.display.flip()
