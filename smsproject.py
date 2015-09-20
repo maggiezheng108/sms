@@ -23,6 +23,7 @@ pink = (255,105,255)
 orange = (255,128,0)
 brown = (98,50,2)
 white = (255,255,255)
+grey = (96,96,96)
 
 width,height = 600, 600
 screen = pygame.display.set_mode((width,height))
@@ -94,16 +95,35 @@ def main():
         word = Word()
         gameplay(word)
         answer = inputbox.ask(screen, "")
-        pygame.display.update()
-        screen.fill(black)
-        pygame.display.flip()
-        time = str(clock.get_time())
+
+        clock.tick()
+        time = (2000-clock.get_time())
+        
+        if clock.get_time() >= 2000 or answer.upper() != words[word.getKey()]:
+                screen.fill(grey)
+                pygame.display.flip()
+                play += 1
+                continue
+            # if answer.upper() != words[word.getKey()]:
+            #     screen.fill(grey)
+            #     pygame.display.flip()
+            #     play += 1
+            #     continue
+            # else:
+            #     screen.fill(grey)
+            #     pygame.display.flip()
+            #     play += 1
+            #     continue
+        else:
+            pass
+        time = str(2000-clock.get_time())
         text = font.render(time, 1, (255,255,255))
         screen.blit(text, (50, 50))
+        screen.fill(black)
+        pygame.display.flip()
         play += 1
         if answer.upper() == words[word.getKey()]:
-            correct += 1
-
+                correct += 1
     else:
         print(correct)
         correct = str(correct)
