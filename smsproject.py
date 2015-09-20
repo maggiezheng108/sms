@@ -4,13 +4,13 @@
 #import statements
 import random
 import pygame
+import time
+from time import sleep
 from pygame import *
+from Tkinter import *
 pygame.init()
 
-#font = pygame.font.Font("Arial",16)
-font = pygame.font.SysFont("Arial", 16)
-font2 = pygame.font.SysFont("Serif", 20)
-font3 = pygame.font.SysFont("Arial",14)
+font = pygame.font.SysFont("Arial", 72)
 white = (255,255,255)
 black = (0,0,0)
 
@@ -21,10 +21,8 @@ yellow = (255, 255, 0)
 purple = (102, 0, 204)
 
 width,height = 600, 600
-extraW = 400
-screen = pygame.display.set_mode((width+extraW,height))
-pygame.display.set_caption("SMS PROJECT")
-screen.fill(white)
+screen = pygame.display.set_mode((width,height))
+screen.fill(black)
 
 class Word:
 
@@ -58,11 +56,20 @@ words = {
     9: "PURPLE",
 }
 
-def main():
-    text = Word()
-    print(text.random_string())
-    print(text.random_color())
+def gameplay(word):
+    text = font.render(word.random_string(), 1, word.random_color())
+    screen.blit(text, (175, 250))
 
+
+def main():
+
+    play = True
+    while play:
+        word = Word()
+        gameplay(word)
+        pygame.display.update()
+        sleep(5)
+        play = False
 
 
 if __name__ == '__main__': main()
